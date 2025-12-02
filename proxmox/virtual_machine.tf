@@ -1,10 +1,12 @@
 resource "proxmox_vm_qemu" "win_vm" {
-  name        = var.vm_name
+  for_each = { for vm in var.vms : vm.name => vm }
+
+  name   = each.value.name
   target_node = var.proxmox_node
   clone       = var.template_name
   full_clone  = true
 
-  memory  = var.vm_memory
+  memory = each.value.memory
   cpu { sockets = 1 }
   scsihw  = "virtio-scsi-pci"
 
