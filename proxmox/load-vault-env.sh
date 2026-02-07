@@ -18,7 +18,10 @@ export AWS_SECRET_ACCESS_KEY
 
 echo "✅ Environment variables set:"
 echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID"
-echo "AWS_SECRET_ACCESS_KEY=********"
+echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY"
 
 echo "✅ Reconfigure Terraform backend with new credentials..."
 terraform init -reconfigure -backend-config="secret_key=$AWS_SECRET_ACCESS_KEY" -backend-config="access_key=$AWS_ACCESS_KEY_ID"
+
+export VAULT_TOKEN=$(cat ~/.vault-token)
+echo "✅ Vault token loaded into environment variable VAULT_TOKEN"
