@@ -61,3 +61,18 @@ variable "vms" {
     error_message = "Each VM must have a valid name (letters, numbers, dashes, underscores), cores between 1–64, and memory between 512–262144 MB."
   }
 }
+
+variable "awx_url" {
+  type        = string
+  description = "AWX URL"
+}
+
+variable awx_job_template_id {
+  type        = string
+  description = "AWX template ID"
+}
+
+variable awx_token {
+  type        = string
+  description = "AWX token"
+}

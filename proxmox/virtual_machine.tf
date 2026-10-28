@@ -37,3 +37,41 @@ resource "proxmox_vm_qemu" "win_vm" {
   # Optional: set VM description
   description = "Windows VM cloned from template"
 }
+
+resource "http" "launch" {
+  url    = "${var.awx_url}/api/v2/job_templates/${var.awx_job_template_id}/launch/"
+  method = "POST"
+
+  request_headers = {
+    Authorization = "Bearer ${var.awx_token}"
+    Content-Type  = "application/json"
+  }
+
+  request_body = jsonencode({
+    extra_vars = {
+      hostname = module.vm.hostname
+      ip       = module.vm.ip_address
+    }
+  })
+}
+
+resource "http" "status" {
+  url    = "${var.awx_url}/api/v2/jobs/${jsondecode(resource.http.launch.response_body).id}/"
+  method = "GET"
+
+  request_headers = {
+    Authorization = "Bearer ${var.awx_token}"
+  }
+
+  retry {
+    attempts = 100
+    delay    = 10
+    until    = contains(["successful", "failed"], jsondecode(self.response_body).status)
+  }
+}
+
+
+resource "proxmox_pool" "example" {
+  poolid  = "example-pool" 
+  comment = "Example of a pool"
+}
