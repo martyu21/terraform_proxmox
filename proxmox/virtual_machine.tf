@@ -71,7 +71,7 @@ resource "http" "status" {
 }
 
 
-resource "proxmox_pool" "example" {
-  poolid  = "example-pool" 
+resource "proxmox_pool" "pool" {
+  poolid  = "dev-pool" 
   comment = "Example of a pool"
 }
