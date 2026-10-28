@@ -38,6 +38,8 @@ variable "vm_disk_size" { default = "40G" }
 variable "vm_storage" { default = "local-lvm" }
 variable "vm_bridge" { default = "vmbr0" }
 
+variable "vm_pool" { default = "dev-pool" }
+
 variable "vms" {
   description = "VM definitions"
   type = list(object({

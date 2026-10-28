@@ -24,6 +24,7 @@ resource "proxmox_vm_qemu" "win_vm" {
   }
 
   os_type = "windows"
+  pool = var.vm_pool
 
   # Optional: set boot order
   boot = "order=ide0;net0"
