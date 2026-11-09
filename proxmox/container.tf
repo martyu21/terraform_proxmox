@@ -25,7 +25,5 @@ resource "proxmox_lxc" "container" {
   start = true
   onboot = true
 
-  ssh_public_keys = file(var.ssh_public_key_file)
-
   description = "LXC container cloned from template"
 }
