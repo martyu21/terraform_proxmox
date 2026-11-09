@@ -1,24 +1,31 @@
 resource "proxmox_lxc" "container" {
-  target_node = var.target_node
-  hostname    = var.hostname
+  for_each = { for ct in var.containers : ct.name => ct }
+
+  hostname    = each.value.name
+  target_node = var.proxmox_node
 
   clone = var.template_name
 
-  cores  = 2
-  memory = 2048
+  cores  = each.value.cores
+  memory = each.value.memory
 
   rootfs {
-    storage = "local-lvm"
-    size    = "20G"
+    storage = var.container_storage
+    size    = var.container_disk_size
   }
 
   network {
     name   = "eth0"
-    bridge = "vmbr0"
+    bridge = var.container_bridge
     ip     = "dhcp"
   }
 
-  start = true
+  pool = var.container_pool
 
-  ssh_public_keys = file(var.public_key_file)
+  start = true
+  onboot = true
+
+  ssh_public_keys = file(var.ssh_public_key_file)
+
+  description = "LXC container cloned from template"
 }
