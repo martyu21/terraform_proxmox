@@ -75,3 +75,65 @@ variable "hostname" {
 variable "public_key_file" {
   type = string
 }
+
+variable "container_template_name" {
+  type        = string
+  description = "Container template name"
+  default     = "CT111"
+}
+
+variable "container_disk_size" {
+  type        = string
+  description = "Container disk size"
+  default     = "20G"
+}
+
+variable "container_storage" {
+  type        = string
+  description = "Container storage"
+  default     = "local-lvm"
+}
+
+variable "container_bridge" {
+  type        = string
+  description = "Container network bridge"
+  default     = "vmbr0"
+}
+
+variable "container_pool" {
+  type        = string
+  description = "Container pool"
+  default     = "dev-pool"
+}
+
+variable "ssh_public_key_file" {
+  type        = string
+  description = "Path to SSH public key"
+  default     = "~/.ssh/id_rsa.pub"
+}
+
+variable "containers" {
+  description = "Container definitions"
+
+  type = list(object({
+    name   = string
+    cores  = number
+    memory = number
+  }))
+
+  validation {
+    condition = alltrue([
+      for ct in var.containers :
+      (
+        length(ct.name) > 0 &&
+        can(regex("^[a-zA-Z0-9_-]+$", ct.name)) &&
+        ct.cores >= 1 &&
+        ct.cores <= 64 &&
+        ct.memory >= 512 &&
+        ct.memory <= 262144
+      )
+    ])
+
+    error_message = "Each container must have a valid name (letters, numbers, dashes, underscores), cores between 1-64, and memory between 512-262144 MB."
+  }
+}

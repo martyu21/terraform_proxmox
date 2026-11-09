@@ -4,7 +4,7 @@ resource "proxmox_lxc" "container" {
   hostname    = each.value.name
   target_node = var.proxmox_node
 
-  clone = var.template_name
+  clone = var.container_template_name
 
   cores  = each.value.cores
   memory = each.value.memory
