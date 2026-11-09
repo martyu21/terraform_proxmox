@@ -64,18 +64,6 @@ variable "vms" {
   }
 }
 
-variable "target_node" {
-  type = string
-}
-
-variable "hostname" {
-  type = string
-}
-
-variable "public_key_file" {
-  type = string
-}
-
 variable "container_template_name" {
   type        = string
   description = "Container template name"
