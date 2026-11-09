@@ -63,3 +63,15 @@ variable "vms" {
     error_message = "Each VM must have a valid name (letters, numbers, dashes, underscores), cores between 1–64, and memory between 512–262144 MB."
   }
 }
+
+variable "target_node" {
+  type = string
+}
+
+variable "hostname" {
+  type = string
+}
+
+variable "public_key_file" {
+  type = string
+}
