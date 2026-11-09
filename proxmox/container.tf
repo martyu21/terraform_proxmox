@@ -4,6 +4,7 @@ resource "proxmox_lxc" "container" {
   hostname    = each.value.name
   target_node = var.proxmox_node
   full = true
+  hastate = started
   clone = var.container_template_name
 
   cores  = each.value.cores
