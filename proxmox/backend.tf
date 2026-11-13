@@ -1,7 +1,6 @@
 terraform {
   backend "s3" {
     bucket = "terraform-state"
-    key    = "lab/state.tfstate"
     region = "us-east-1"
 
     endpoints = {
