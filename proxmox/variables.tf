@@ -48,6 +48,8 @@ variable "vms" {
     memory            = number
   }))
 
+  default = []
+  
   validation {
     condition = alltrue([
       for vm in var.vms :
