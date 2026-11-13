@@ -1,11 +1,12 @@
 resource "proxmox_lxc" "container" {
   for_each = { for ct in var.containers : ct.name => ct }
   
-  hostname    = each.value.name
+  hostname    = "${var.environment}-${each.value.name}"
   target_node = var.proxmox_node
   full = true
   clone = var.container_template_name
 
+  name_env_prefix   = each.value.cores
   cores  = each.value.cores
   memory = each.value.memory
 

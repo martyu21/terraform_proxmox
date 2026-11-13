@@ -43,9 +43,9 @@ variable "vm_pool" { default = "dev-pool" }
 variable "vms" {
   description = "VM definitions"
   type = list(object({
-    name   = string
-    cores  = number
-    memory = number
+    name              = string
+    cores             = number
+    memory            = number
   }))
 
   validation {
@@ -104,9 +104,9 @@ variable "containers" {
   description = "Container definitions"
 
   type = list(object({
-    name   = string
-    cores  = number
-    memory = number
+    name              = string
+    cores             = number
+    memory            = number
   }))
 
   validation {
@@ -124,4 +124,14 @@ variable "containers" {
 
     error_message = "Each container must have a valid name (letters, numbers, dashes, underscores), cores between 1-64, and memory between 512-262144 MB."
   }
+
+variable "environment" {
+  type = string
+
+  validation {
+    condition     = contains(["dev", "stg", "prd"], var.environment)
+    error_message = "Environment must be dev, stg, or prd."
+  }
+}
+
 }
