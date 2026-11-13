@@ -125,6 +125,7 @@ variable "containers" {
     error_message = "Each container must have a valid name (letters, numbers, dashes, underscores), cores between 1-64, and memory between 512-262144 MB."
   }
 
+}  
 variable "environment" {
   type = string
 
@@ -134,4 +135,4 @@ variable "environment" {
   }
 }
 
-}
+
