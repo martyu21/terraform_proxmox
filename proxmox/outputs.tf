@@ -8,3 +8,10 @@ output "hostnames" {
     k => v.hostname
   }))
 }
+
+
+output "container_ids" {
+  value = [
+    for container in proxmox_lxc.container : container.vmid
+  ]
+}
