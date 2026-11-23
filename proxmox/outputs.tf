@@ -10,8 +10,8 @@ output "hostnames" {
 }
 
 
-output "container_ids" {
-  value = [
-    for container in proxmox_lxc.container : container.vmid
-  ]
+output "container_ids_csv" {
+  value = join(",", [
+    for c in proxmox_lxc.container : c.vmid
+  ])
 }
