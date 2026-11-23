@@ -137,7 +137,3 @@ variable "environment" {
   }
 }
 
-variable "healthcheck_url" {
-  type    = string
-  default = ""
-}
