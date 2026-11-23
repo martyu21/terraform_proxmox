@@ -9,7 +9,6 @@ output "hostnames" {
   }))
 }
 
-
 output "container_ids_csv" {
   value = join(",", [
     for c in proxmox_lxc.container : c.vmid
