@@ -49,7 +49,7 @@ variable "vms" {
   }))
 
   default = []
-  
+
   validation {
     condition = alltrue([
       for vm in var.vms :
@@ -137,4 +137,7 @@ variable "environment" {
   }
 }
 
-
+variable "healthcheck_url" {
+  type    = string
+  default = ""
+}
