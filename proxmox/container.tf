@@ -5,7 +5,7 @@ resource "proxmox_lxc" "container" {
   target_node = var.proxmox_node
   full = true
   clone = var.container_template_name
-  
+
   cores  = each.value.cores
   memory = each.value.memory
 
@@ -24,6 +24,7 @@ resource "proxmox_lxc" "container" {
 
   start = true
   onboot = true
+  startup = "order=10"
 
   description = "LXC container cloned from template"
 }
